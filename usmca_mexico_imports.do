@@ -5,7 +5,7 @@
 
 *-------------Import Dataset-----------------------*
 cd "C:\Users\lucia\Downloads"
-import delimited "TradeData_4_1_2026_10_4_14.csv", clear
+import delimited "C:\Users\lucia\Downloads\TradeData_4_1_2026_10_4_14.csv", clear
 
 *-------------Keep and rename variables------------*
 keep refyear partnerdesc primaryvalue
@@ -46,8 +46,6 @@ clear
 svmat Y_treated,   name(real_mexico)
 svmat Y_synthetic, name(synthetic_mexico)
 gen year = 2014 + _n
-
-* FIX: svmat creates real_mexico1 / synthetic_mexico1 (not real_mexico)
 keep if real_mexico1 != .
 
 gen gap  = real_mexico1 - synthetic_mexico1
@@ -87,8 +85,6 @@ twoway ///
     xtitle("Year") ytitle("Gap (Real - Synthetic)") ///
     xlabel(2015(1)2023)
 graph export "C:\Users\lucia\Downloads\gap_graph.png", replace
-
-save "C:\Users\lucia\Downloads\Presentation_MataL.dta", replace
 
 *--------------------Placebo Tests and Graph-------------------------------*
 
@@ -196,15 +192,15 @@ list year gap_mexico gap_brazil in 1/9
 
 *------------------------------Placebo graph--------------------------------*
 twoway ///
-    (line gap_brazil   year, lcolor(sienna)   lwidth(thin)) ///
-    (line gap_chile    year, lcolor(orange)   lwidth(thin)) ///
-    (line gap_china    year, lcolor(lavender) lwidth(thin)) ///
-    (line gap_colombia year, lcolor(midgreen) lwidth(thin)) ///
-    (line gap_germany  year, lcolor(purple)   lwidth(thin)) ///
+    (line gap_brazil   year, lcolor(sienna)    lwidth(thin)) ///
+    (line gap_chile    year, lcolor(orange)    lwidth(thin)) ///
+    (line gap_china    year, lcolor(lavender)  lwidth(thin)) ///
+    (line gap_colombia year, lcolor(midgreen)  lwidth(thin)) ///
+    (line gap_germany  year, lcolor(purple)    lwidth(thin)) ///
     (line gap_japan    year, lcolor(cranberry) lwidth(thin)) ///
-    (line gap_korea    year, lcolor(cyan)     lwidth(thin)) ///
-    (line gap_vietnam  year, lcolor(gold)     lwidth(thin)) ///
-    (line gap_mexico   year, lcolor(red)      lwidth(thick)), ///
+    (line gap_korea    year, lcolor(cyan)      lwidth(thin)) ///
+    (line gap_vietnam  year, lcolor(gold)      lwidth(thin)) ///
+    (line gap_mexico   year, lcolor(red)       lwidth(thick)), ///
     legend(label(9 "Mexico") label(1 "Donor Countries")) ///
     title("Placebo Test: Mexico vs Donor Countries") ///
     xline(2020, lpattern(dash) lcolor(gray)) ///
@@ -212,3 +208,5 @@ twoway ///
     xtitle("Year") ytitle("Gap (Real - Synthetic)") ///
     xlabel(2015(1)2023)
 graph export "C:\Users\lucia\Downloads\placebo_graph.png", replace
+
+save "C:\Users\lucia\Downloads\Presentation_MataL.dta", replace
