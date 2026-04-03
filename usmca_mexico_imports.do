@@ -8,8 +8,7 @@ cd "C:\Users\lucia\Downloads"
 import delimited "C:\Users\lucia\Downloads\TradeData_4_1_2026_10_4_14.csv", clear
 
 *-------------Keep and rename variables------------*
-keep refyear partnerdesc primaryvalue
-rename refyear year
+keep year partnerdesc primaryvalue
 rename partnerdesc country
 rename primaryvalue imports
 
@@ -91,8 +90,7 @@ graph export "C:\Users\lucia\Downloads\gap_graph.png", replace
 *-------Reload Data for Placebos-------------------------------------------*
 cd "C:\Users\lucia\Downloads"
 import delimited "TradeData_4_1_2026_10_4_14.csv", clear
-keep refyear partnerdesc primaryvalue
-rename refyear year
+keep year partnerdesc primaryvalue
 rename partnerdesc country
 rename primaryvalue imports
 destring year, replace
